@@ -1,0 +1,31 @@
+{
+  "name": "vue-server",
+  "version": "0.0.1",
+  "description": "A rest api for vue project tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usefss/vue-Server.git"
+  },
+  "keywords": [
+    "node",
+    "api",
+    "vue"
+  ],
+  "author": "yosef:salmalian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/usefss/vue-Server/issues"
+  },
+  "homepage": "https://github.com/usefss/vue-Server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.25.3",
+    "mongoose": "^5.9.14",
+    "node-uuid": "^1.4.8"
+  }
+}
