@@ -22,17 +22,25 @@ userSchema.findById = function (cb) {
 
 const User =  mongoose.model('Users', userSchema)
 
+exports.findByEmail = (email) => {
+    return User.find({email: email})
+}
+
 exports.createUser = (userData) => {
     const user = new User(userData)
     return user.save()
 }
 
 exports.findById = (id) => {
+    console.log(id)
     return User.findById(id).then((result) => {
         result = result.toJSON()
-        delete result._id
-        delete result.__v
+        // delete result._id
+        // delete result.__v
         return result
+    }).catch ((err) => {
+        // console.log(err)
+        return null
     })
 }
 

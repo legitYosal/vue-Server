@@ -3,9 +3,7 @@ const crypto = require('crypto')
 
 exports.insert = (req, res) => {
     console.log('POST TO USERS')
-    console.log(req.body)
     let salt = crypto.randomBytes(16).toString('base64')
-    console.log('salt is: ', salt)
     let hash = crypto.createHmac('sha512', salt)
         .update(req.body.password)
         .digest('base64')
@@ -13,11 +11,13 @@ exports.insert = (req, res) => {
     req.body.permissionLevel = 1
     UserModel.createUser(req.body)
         .then((result) => {
+            console.log(result)
             res.status(201).send({id: result._id})
         })
 }
 
 exports.getById = (req, res) => {
+    console.log(req.params)
     UserModel.findById(req.params.userId).then((result) => {
         res.status(200).send(result)
     })

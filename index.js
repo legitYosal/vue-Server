@@ -6,6 +6,7 @@ const app = express()
 const bodyParser = require('body-parser')
 
 const UsersRouter = require('./users/routes.config')
+const AuthRouter = require('./auth/routes.config')
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json())
 
 UsersRouter.routesConfig(app)
+AuthRouter.routesConfig(app)
 
 app.listen(config.port, () => {
     console.log('App Started Listening on port %s', config.port)
