@@ -3,6 +3,7 @@ const crypto = require('crypto')
 
 exports.insert = (req, res) => {
     console.log('POST TO USERS')
+    console.log(req.body.name)
     let salt = crypto.randomBytes(16).toString('base64')
     let hash = crypto.createHmac('sha512', salt)
         .update(req.body.password)
@@ -19,7 +20,10 @@ exports.insert = (req, res) => {
 exports.getById = (req, res) => {
     console.log(req.params)
     UserModel.findById(req.params.userId).then((result) => {
-        res.status(200).send(result)
+        if (result)
+            res.status(200).send(result)
+        else 
+            res.status(403).send()
     })
 }
 
@@ -47,12 +51,21 @@ exports.list = (req, res) => {
         }
     }
     UserModel.list(limit, page).then((result) => {
-        res.status(200).send(result)
+        let result_rvrs = []
+        let len = result.length
+        for (let i in result) {
+            result_rvrs.push(result[len - i - 1])
+        }
+        // console.log(result_rvrs)
+        res.status(200).send(result_rvrs)
     })
 }
 
 exports.removeById = (req, res) => {
-    UserModel.removeById(req.params.userId).then((result) => {
-        res.status(204).send({})
+    console.log('DELETE REQUEST')
+    UserModel.removeById(req.params.userId).then(() => {
+        res.status(200).send({})
+    }).catch((err) => {
+        res.status(404).send({errors: ['not found user']})
     })
 }
